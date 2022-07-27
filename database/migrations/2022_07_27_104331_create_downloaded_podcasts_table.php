@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('downloaded_events', function (Blueprint $table) {
+        Schema::create('downloaded_podcasts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
             $table->uuid('event_id');
@@ -37,12 +37,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('downloaded_events', function (Blueprint $table) {
-            $table->dropForeign('downloaded_events_event_id_foreign');
-            $table->dropForeign('downloaded_events_episode_id_foreign');
-            $table->dropForeign('downloaded_events_podcast_id_foreign');
+        Schema::table('downloaded_podcasts', function (Blueprint $table) {
+            $table->dropForeign('downloaded_podcasts_event_id_foreign');
+            $table->dropForeign('downloaded_podcasts_episode_id_foreign');
+            $table->dropForeign('downloaded_podcasts_podcast_id_foreign');
         });
 
-        Schema::dropIfExists('downloaded_events');
+        Schema::dropIfExists('downloaded_podcasts');
     }
 };

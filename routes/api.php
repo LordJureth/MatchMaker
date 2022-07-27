@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\DownloadedPodcastsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    Route::post('store-downloaded-podcast', [DownloadedPodcastsController::class, 'store']);
+    Route::get('recent-downloaded-podcasts', [DownloadedPodcastsController::class, 'show']);
 });
