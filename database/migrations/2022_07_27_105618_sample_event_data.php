@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\events;
+use App\Models\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -34,7 +34,7 @@ return new class extends Migration
         ];
 
         foreach ($sample_data_array as $event_data) {
-            $event = new events();
+            $event = new Event();
             $event->name = $event_data['name'];
             $event->description = $event_data['description'];
             $event->save();
@@ -48,6 +48,6 @@ return new class extends Migration
      */
     public function down()
     {
-        events::truncate();
+        Event::truncate();
     }
 };

@@ -6,8 +6,10 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class downloaded_events extends Model
+class Event extends Model
 {
     use HasFactory;
-    use Uuid;    
+    use Uuid;
+    
+    protected $fillable = ['name', 'description'];
 }

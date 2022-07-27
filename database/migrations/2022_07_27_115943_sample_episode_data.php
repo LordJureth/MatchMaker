@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\episodes;
+use App\Models\Episode;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -58,7 +58,7 @@ return new class extends Migration
         ];
 
         foreach ($sample_data_array as $episode_data) {
-            $episode = new episodes();
+            $episode = new Episode();
             $episode->name = $episode_data['name'];
             $episode->description = $episode_data['description'];
             $episode->save();
@@ -72,6 +72,6 @@ return new class extends Migration
      */
     public function down()
     {
-        episodes::truncate();
+        Episode::truncate();
     }
 };

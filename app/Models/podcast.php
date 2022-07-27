@@ -6,10 +6,10 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class episodes extends Model
+class Podcast extends Model
 {
     use HasFactory;
     use Uuid;
-
-    protected $fillable = ['name', 'description'];
+    
+    protected $fillable = ['name', 'description', 'type'];
 }

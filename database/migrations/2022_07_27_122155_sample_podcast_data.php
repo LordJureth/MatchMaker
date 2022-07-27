@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\podcasts;
+use App\Models\Podcast;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -58,7 +58,7 @@ return new class extends Migration
         ];
 
         foreach ($sample_data_array as $podcast_data) {
-            $podcast = new podcasts();
+            $podcast = new Podcast();
             $podcast->name = $podcast_data['name'];
             $podcast->description = $podcast_data['description'];
             $podcast->type = 'episode.downloaded';
@@ -73,6 +73,6 @@ return new class extends Migration
      */
     public function down()
     {
-        podcasts::truncate();
+        Podcast::truncate();
     }
 };
