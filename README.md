@@ -1,50 +1,155 @@
-MatchMaker
+<h1>MatchMaker</h1>
 
-Specification Scenario Podcast.co’s hosting system is now live and people are happily downloading podcast episodes. A new requirement has come in to provide users with time series download data. The existing developers have agreed that for now they will send a webhook event to your application for every episode downloaded. Your task is to handle the webhooks to store download data, then provide an api for the front end team to create a time series downloads chart.
+<h2>Specification Scenario</h2>
+<p>
+Podcast.co’s hosting system is now live and people are happily downloading podcast episodes. A new requirement has come in to provide users with time series download data. The existing developers have agreed that for now they will send a webhook event to your application for every episode downloaded. Your task is to handle the webhooks to store download data, then provide an api for the front end team to create a time series downloads chart.
+</p>
 
-Part 1
-
+<h3>Part 1</h3>
+<p>
 The first part of this task is to handle the webhook and store download data in a suitable format to be queried later. The developers expect to send the following request to your solution:
+</p>
 
+<pre>
 POST /webhook
 
 { "type": "episode.downloaded", "event_id": "uuid", "occurred_at": "ISO8601 date time", "data": { "episode_id": "uuid", "podcast_id": "uuid" } }
 
 Note, they expect to send different event types in the future.
+</pre>
 
-Part 2
+<h3>Part 2</h3>
 
+<p>
 The front end team would like to build a time series chart showing daily downloads for a particular episode for the last 7 days, they expect this data to be aggregated for them.
+</p>
 
+<p>
 Your task is to build an api endpoint that provides data that the front end team can use to achieve their goal.
+</p>
 
-Development Details Migrations have been added to store some sample data so when you make the API request to store some information. I have added a postman collection for both end points. I will add more info on that soon
+<h2>Development Details</h2>
+<p>Migrations have been added to store some sample data so when you make the API request to store some information.</p>
+
+<p>I have added a postman collection for both end points. I will add more info on that soon</p>
+
+<h3>Storing Downloaded Podcast Information</h3>
+<pre>
+
+endpoint: /api/v1/store-downloaded-podcast
+Data: json format. 
+method: Post
+Headers:
+Accept / application/json
+Content-Type / application/json
+
+Field: type
+DataType: String. 
+Exmaple:"episode.downloaded"
+Required: No
+Description: This is the type of podcast. If omited then the default 'episode.downloaded' will be applied.
+
+Field: event_id
+DataType: String. 
+Exmaple:This is the UUID of the event.
+Required: Yes
+Description: This is the ID of the event this podcast is linked too.
+
+Field: occurred_at
+DataType: Date . ISO8601 date time formatted
+Exmaple: "2022-07-27 22:47:46",
+Required: No
+Description: This is the time the podcast was downloaded. if omited then the time this is processed is applied.
+
+Field: data
+DataType: JSON object
+Exmaple: "data": {
+        "episode_id": "fedd1dd6-2abb-4219-a412-68096005ce6b",
+        "podcast_id": "3112d561-800d-4955-9fb8-43ae678c9e9a"
+    }
+Required: Yes
+Description: This contains the epidsode ID and podcast ID. See below. 
+
+Field: episode_id
+DataType: string
+Exmaple:  "fedd1dd6-2abb-4219-a412-68096005ce6
+Required: Yes
+Description: This is the ID of the Episode this podcast is linked too.
+
+Field: podcast_id
+DataType: string
+Exmaple:  "3112d561-800d-4955-9fb8-43ae678c9e9a"
+Required: Yes
+Description: This is the ID of the Podcast this podcast
+</pre>
+
+<p>
+ A test has been written for this called StoreDownloadedPodcastsTest.
+</p>
 
 
+<h3>Calling Downloaded Podcast Information</h3>
+
+<h4>End Point Info</h4>
+endpoint: /api/v1/recent-downloaded-podcasts
+method: Get
+Headers:
+Accept / application/json
+Content-Type / application/json
+
+<h4>Parameters</h4>
+Field: type
+Exmaple: type=episode.downloaded
+Required: No
+Description: This is the type of podcast. This will limit the results to the type given. If ommited then all types are pulled down.
+
+Field: days_back
+Exmaple: days_back=7
+Required: no
+Description: Yo can specifify the days to look back. Any podcasts downloaded after this date will show. Will not work in  conjunction with date_from and date_to parameters.
+
+Field: date_from
+DataType: Date . ISO8601 date time formatted
+Exmaple: "2022-07-27 22:47:46", must be ISO8601 date time formatted
+Required: No
+Description: See all downloaded podcasts from this date. can be used in conjunction with date_to
+
+Field: date_to
+DataType: Date . ISO8601 date time formatted
+Exmaple: "2022-07-27 22:47:46", must be ISO8601 date time formatted
+Required: No
+Description: See all downloaded podcasts from before this date.  an be used in conjunction with date_from
+
+</pre>
+
+<p>
+ A test has been written for this called GetDownloadedPodcastsTest.
+</p>
 
 
+<h1>What I would do if this was going to production</h1>
+<pre>
+    <ul>
+        <li>I would add authentication using a brearer token</li>
+        <li>I would have liked to know more about the DB structure, what information the front end required so I could format the response better it better.</li>
+        <li>Add more API points depending on need, like do we need to have a delete? or see podcast info?</li>
+        <li>Dockerise it / VM</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</pre>
 
+<h1>My thoughts on this</h1>
+<p>
+THe spec is to breif, There is not enough information to see the full picture of what is required. Ideally more info on what the font end needed. The relationship between the events, epidoes and podcasts. I have had to assume a lot. I have added some demo data based of these assumptions. 
+</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p>
+Initally attempted a docker install of laravel but had issues so opted for just installing and hosted locally using XAMPP.
+</p>
 
 
 
