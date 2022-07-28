@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['XssSanitizer'])->group(function () {
     Route::post('store-downloaded-podcast', [DownloadedPodcastsController::class, 'store']);
     Route::get('recent-downloaded-podcasts', [DownloadedPodcastsController::class, 'show']);
 });

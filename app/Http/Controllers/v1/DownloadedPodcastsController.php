@@ -5,8 +5,6 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDownloadedPodcastRequest;
 use App\Models\DownloadedPodcast;
-use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 
 class DownloadedPodcastsController extends Controller
@@ -33,8 +31,8 @@ class DownloadedPodcastsController extends Controller
                 'podcast_id' => $request['data']['podcast_id']
             ]);
 
-            $downloaded_postcast->occurred_at = $request['occurred_at'];
-            $downloaded_postcast->type = $request['type'];
+            $downloaded_postcast->occurred_at = $request['occurred_at'] ?? now();
+            $downloaded_postcast->type = $request['type'] ?? 'episode.downloaded';
             $downloaded_postcast->save();
 
             /**
@@ -53,24 +51,24 @@ class DownloadedPodcastsController extends Controller
      */
     public function show(Request $request)
     {
-        $days_to_look_back = $request->has('days') ? $request->input('days') : null;
-        $podcast_type = $request->has('type') ? $request->input('type') : null;
-        $date_from = $request->has('date_from') ? $request->input('date_from') : null;
-        $date_to = $request->has('date_to') ? $request->input('date_to') : null;
+        $days_to_look_back = $request->has('days_back') && !empty($request->input('days_back')) ? $request->input('days_back') : null;
+        $podcast_type = $request->has('type') && !empty($request->input('days_back')) ? $request->input('type') : null;
+        $date_from = $request->has('date_from') && !empty($request->input('days_back')) ? $request->input('date_from') : null;
+        $date_to = $request->has('date_to') && !empty($request->input('days_back')) ? $request->input('date_to') : null;
 
 
         $downloaded_postcasts = DownloadedPodcast::query()
             ->when($days_to_look_back && (!$date_from && !$date_to), function ($query) use ($days_to_look_back) {
                 /** Use Days to look back if there is no date range */
-                $query->whereDate('occurred_at', '<=', now()->subDays($days_to_look_back)->setTime(0, 0, 0)->toDateTimeString())->get();
+                $query->where('occurred_at', '>=', now()->subDays($days_to_look_back)->setTime(0, 0, 0)->toDateTimeString())->get();
             })
-            ->when($date_from, function ($query) {
+            ->when($date_from, function ($query) use ($date_from) {
                 /** Any podcasts downloaded after this date */
-                $query->whereDate('occurred_at', '>=', Carbon::now('Europe/Stockholm'));
+                $query->where('occurred_at', '>=', $date_from);
             })
-            ->when($date_to, function ($query) {
+            ->when($date_to, function ($query) use ($date_to) {
                 /** Any podcasts downloaded before this date */
-                $query->whereDate('occurred_at', '<=', Carbon::now('Europe/Stockholm'));
+                $query->where('occurred_at', '<=', $date_to);
             })
             ->when($podcast_type, function ($query) use ($podcast_type) {
                 /** Podcast type */
@@ -78,6 +76,9 @@ class DownloadedPodcastsController extends Controller
             })
             ->get();
 
+        /**
+         * Returns the modal results in JSON Format. 
+         */
         return $downloaded_postcasts->toJson();
     }
 }

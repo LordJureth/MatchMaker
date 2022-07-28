@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class StoreDownloadedPodcastRequest extends FormRequest
 {
     /**
@@ -24,7 +25,9 @@ class StoreDownloadedPodcastRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'event_id' => ['required'],
+            'data.episode_id' => ['required'],
+            'data.podcast_id' => ['required'],
         ];
     }
 }
