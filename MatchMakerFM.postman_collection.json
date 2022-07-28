@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "f1fa2b0c-e8a2-46e7-9ff5-6d712d421b94",
+		"name": "MatchMakerFM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Stored Downloaded Podcasts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/recent-downloaded-podcasts?days=7",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"recent-downloaded-podcasts"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Downloaded Podcasts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"episode.downloaded\",\r\n    \"event_id\": \"3b10a884-6ad2-4c78-a3e8-4912df02ff2f\",\r\n    \"occurred_at\": \"2022-07-27 22:47:46\",\r\n    \"data\": {\r\n        \"episode_id\": \"fedd1dd6-2abb-4219-a412-68096005ce6b\",\r\n        \"podcast_id\": \"3112d561-800d-4955-9fb8-43ae678c9e9a\"\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/store-downloaded-podcast",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"store-downloaded-podcast"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost/matchmaker/public",
+			"type": "default"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "default",
+			"disabled": true
+		}
+	]
+}
