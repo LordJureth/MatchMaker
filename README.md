@@ -141,7 +141,7 @@ Description: See all downloaded podcasts from before this date.  an be used in c
 
 <h1>My thoughts on this</h1>
 <p>
-The spec is to breif, There is not enough information to see the full picture of what is required. Ideally more info on what the font end needed. The relationship between the events, epidoes and podcasts. I have had to assume a lot. I have added some demo data based of these assumptions. 
+The spec is to breif, There is not enough information to see the full picture of what is required. Ideally more info on what the font end needed. The relationship between the events, epidoes and podcasts. I have had to assume a lot. I have added some demo data based of these assumptions.  Normally before starting on a task like this I would have discussed with the appopriate parties to get all the required information and discuss options.
 </p>
 
 <p>
