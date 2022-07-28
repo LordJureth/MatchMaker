@@ -83,13 +83,14 @@ Required: Yes
 Description: This is the ID of the Podcast this podcast
 </pre>
 
+<h4>Tests</h4>
 <p>
  A test has been written for this called StoreDownloadedPodcastsTest.
 </p>
 
 
 <h3>Calling Downloaded Podcast Information</h3>
-
+<pre>
 <h4>End Point Info</h4>
 endpoint: /api/v1/recent-downloaded-podcasts
 method: Get
@@ -122,6 +123,7 @@ Description: See all downloaded podcasts from before this date.  an be used in c
 
 </pre>
 
+<h4>Tests</h4>
 <p>
  A test has been written for this called GetDownloadedPodcastsTest.
 </p>
@@ -134,17 +136,12 @@ Description: See all downloaded podcasts from before this date.  an be used in c
         <li>I would have liked to know more about the DB structure, what information the front end required so I could format the response better it better.</li>
         <li>Add more API points depending on need, like do we need to have a delete? or see podcast info?</li>
         <li>Dockerise it / VM</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
     </ul>
 </pre>
 
 <h1>My thoughts on this</h1>
 <p>
-THe spec is to breif, There is not enough information to see the full picture of what is required. Ideally more info on what the font end needed. The relationship between the events, epidoes and podcasts. I have had to assume a lot. I have added some demo data based of these assumptions. 
+The spec is to breif, There is not enough information to see the full picture of what is required. Ideally more info on what the font end needed. The relationship between the events, epidoes and podcasts. I have had to assume a lot. I have added some demo data based of these assumptions. 
 </p>
 
 <p>
